@@ -1,37 +1,96 @@
 /**
-	Programa: EvaluaciÛn de expresiones aritmÈtica
+	Programa: Evaluaci√≥n de expresiones aritm√©tica
 	Autores: Equipo Smitty Werberjagermanjensen
-	VersiÛn: 1.0
+	Versi√≥n: 1.0
 	
-	DescripciÛn: EvaluaciÛn de expresiones aritmÈticas mediante el uso de pilas
-	Se usar· una estructura de datos tipo LIFO (Last In First Out)
-	Se ingresa una expresion, el programa proceder· a:
-		1.-Validar que el uso de parÈntesis (si los hay), sea correcto.
+	Descripci√≥n: Evaluaci√≥n de expresiones aritm√©ticas mediante el uso de pilas
+	Se usar√° una estructura de datos tipo LIFO (Last In First Out)
+	Se ingresa una expresion, el programa proceder√° a:
+		1.-Validar que el uso de par√©ntesis (si los hay), sea correcto.
 		2.-Pasar la expresion a notacion postfija
 		2.-Evaluar la expresion y devolver el resultado
 	
-	Observaciones: Se podr· ingresar una expresion aritmetica que no sobrepase
-	el lÌmite establecido por la constante MAX_TAMANO (la cual se declarar· mas adelante)
+	Observaciones: Se podr√° ingresar una expresion aritmetica que no sobrepase
+	el l√≠mite establecido por la constante MAX_TAMANO (la cual se declarar√° mas adelante)
 */
 
 //Librerias
 #include <stdio.h>
 #include <stdlib.h> //Para el uso de exit()
-#include "TADPilaDinSW.h" //Se utilizar· para hacer uso de una pila din·mica
+#include <string.h> //Para el uso de strlen()
+#include "TADPilaDinSW.h" //Se utilizar√° para hacer uso de una pila din√°mica
+
 
 //Definiciones
-#define MAX_TAMANO 100 //TamaÒo m·ximo de la expresion aritmÈtica
+#define MAX_TAMANO 100 //Tama√±o m√°ximo de la expresion aritm√©tica
 
 //Definificion de funciones
 
-boolean validar_parentesis(char *,int ); //Funcion que recibe un apuntador a caracter y un entero y valida el uso de parÈntesis, retornando TRUE o FALSE dependiendo el caso
+boolean validar_parentesis(char *,int ); //Funcion que recibe un apuntador a caracter y un entero y valida el uso de par√©ntesis, retornando TRUE o FALSE dependiendo el caso
 
 //Programa principal
 int main()
 {
-	int tamano_cadena_real; //Se usar· para almacenar el tamaÒo de la cadena
+	int tamano_cadena_real; //Se usar√° para almacenar el tama√±o de la cadena
+	char cadena[MAX_TAMANO]; //Arreglo que contendra la expresi√≥n aritm√©tica
+		
+	//Leer cadena a evaluar
+	scanf("%s",cadena);
 	
-	
+	//Medir la longitud de la cadena
+	tam_cadena_real=strlen(cadena);
+
+	if(validar_parentesis(cadena,tam_cadena_real)==TRUE)//Valida que los parentesis est√©n escritos correctamente
+	{
+		
+	}
+	{
+		
+		printf("Hay un error con los par√©ntesis\n");
+		exit(1); //Salir del programa con error
+		
+	}
 	return 0;
 }
 
+
+boolean validar_parentesis(char *cadena,int tamano){
+	
+	int i;
+	boolean resultado;
+	
+	//Se declara la pila a utilizar
+	pila mi_pila;
+	
+	//Se declara el elemento que entrar√° a la pila
+	elemento e;
+	
+	//Inicializacipon de "mi pila"
+	Initialize(&mi_pila);
+	
+	for(i=0;i<tamano;i++)
+	{
+			//Si el caracter es ( introducirlo a la pila
+		if(*(cadena+i)=='(')
+			{
+				e.c='(';
+				Push(&mi_pila,e);
+			}
+		
+		//Si el caracter es ) realizar un Pop a la pila		
+		else if(*(cadena+i)==')')
+			{
+				//Si se intenta extraer un elemento y la pila es vacia Error: P.g. (a+b)*c)
+				if(Empty(&mi_pila))
+				{
+					resultado= FALSE;
+				
+				}
+				e=Pop(&mi_pila);
+			}
+	}
+	
+	resultado = TRUE;
+	
+	return resultado;
+}
